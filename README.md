@@ -5,11 +5,11 @@ Uvoznik transakcijskih racunov poslovnih subjektov (prek poizvedbe na AJPES) v r
 
 
 Opis XML datotek
-++++++++++++++++
+----------------
 [Opis XML datotek](http://www.ajpes.si/ostale_vsebine/za_razvijalce_programske_opreme#DvaEnaEna) na strani AJPES.
 
 Namestitev
-++++++++++
+----------
 
 Namestitev je mogoca na linux operacijskem sistemu.
 
