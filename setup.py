@@ -2,7 +2,7 @@ import sys
 
 from setuptools import setup, find_packages
 
-version = __import__('importer.').get_version()
+version = __import__('importer').get_version()
 
 
 setup(
