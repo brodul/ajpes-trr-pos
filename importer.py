@@ -1,3 +1,4 @@
+raise NotImplementedError("This app is still in development")
 import codecs
 import xml.etree.ElementTree as et
 
