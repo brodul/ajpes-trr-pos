@@ -1,4 +1,3 @@
-raise NotImplementedError("This app is still in development")
 import xml.etree.ElementTree as et
 import logging
 
@@ -14,8 +13,8 @@ from models import (
 )
 
 
-# engine = create_engine("postgresql://brodul:test@localhost/test")
-engine = create_engine("sqlite://")
+engine = create_engine("postgresql://brodul:test@localhost/test")
+#engine = create_engine("sqlite://")
 __version__ = '0.1.0'
 
 get_version = lambda: __version__
@@ -104,6 +103,7 @@ class XMLParser(object):
             self.tr = dict(self.elem.attrib)
             self.tr['dSpre'] = dateutil.parser.parse(self.tr.get('dSpre'))
             self.tr['dOdprt'] = dateutil.parser.parse(self.tr.get('dOdprt'))
+            self.tr['dZaprt'] = self.tr.get('dZaprt') and dateutil.parser.parse(self.tr.get('dZaprt'))
 
             self.next_event()
             while self.tag == 'Imetnik' and self.event == 'start':
@@ -126,12 +126,15 @@ class XMLParser(object):
             if self.imetnik.get('davcna'):
                 naslov = Naslov(**self.naslov)
                 DBSession.add(naslov)
-                imetnik = Imetnik(naslovi=[naslov], **self.imetnik)
+                imetnik = DBSession.query(Imetnik).\
+                    filter(Imetnik.davcna == self.imetnik['davcna']).first()
+                if not imetnik:
+                    imetnik = Imetnik(naslovi=[naslov], **self.imetnik)
                 DBSession.merge(imetnik)
                 racun = Racun(imetniki=[imetnik], **self.tr)
                 DBSession.merge(racun)
             else:
-                logging.warning("Podjetje: %s nima davcne", self.imetnik['PopolnoIme'])
+                logging.warning("Podjetje: %s nima davcne", self.imetnik.get('PopolnoIme'))
             yield self.tr
 
     def parse_imetnik(self):
