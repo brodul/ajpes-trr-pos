@@ -2,7 +2,10 @@ import sys
 
 from setuptools import setup, find_packages
 
-version = __import__('importer').get_version()
+try:
+    version = __import__('importer').get_version()
+except:
+    version = None
 
 
 setup(
@@ -18,7 +21,10 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'sqlalchemy==0.9'
+        'sqlalchemy==0.9',
+        'psycopg2==2.5.4',
+        'blessings==1.6',
+        'python-dateutil==2.2',
     ],
     scripts=['importer.py'],
     entry_points={'console_scripts': [
