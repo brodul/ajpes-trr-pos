@@ -25,7 +25,7 @@ virtualenv .
 source bin/activate
 python setup.py develop
 hash -r
-ajpes-importer konfiguracija.ini
+python importer.py conf.ini
 ```
 
 

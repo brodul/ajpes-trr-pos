@@ -23,7 +23,7 @@ setup(
     install_requires=[
         'sqlalchemy==0.9',
         'psycopg2==2.5.4',
-        'blessings==1.6',
+        'clint==0.4.1',
         'python-dateutil==2.2',
     ],
     scripts=['importer.py'],

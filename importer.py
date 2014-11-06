@@ -1,8 +1,11 @@
+import ConfigParser
 import xml.etree.ElementTree as et
 import logging
 
 from sqlalchemy import create_engine
 import dateutil.parser
+from clint import arguments
+from clint.textui import colored, puts
 
 from models import (
     DBSession,
@@ -13,8 +16,13 @@ from models import (
 )
 
 
-engine = create_engine("postgresql://brodul:test@localhost/test")
-#engine = create_engine("sqlite://")
+config = ConfigParser.ConfigParser()
+args = arguments.Args()
+conf_file = args.get(0)
+with open(conf_file) as f:
+    config.readfp(f)
+
+engine = create_engine(config.get('importer', 'sqla_uri'))
 __version__ = '0.1.0'
 
 get_version = lambda: __version__
@@ -24,8 +32,6 @@ DBSession.configure(bind=engine)
 
 Base.metadata.bind = engine
 Base.metadata.create_all(engine)
-
-data_file = '../data/RTR_AJPES_20140831_POS_P_M.xml'
 
 
 class XMLParser(object):
@@ -175,5 +181,5 @@ class XMLParser(object):
             pass
         print self.counter
 
-xmlparser = XMLParser(data_file)
+xmlparser = XMLParser(config.get('importer', 'xml_file'))
 xmlparser.start()
