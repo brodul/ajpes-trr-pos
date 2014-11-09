@@ -4,4 +4,4 @@ xml_file = ../data/RTR_AJPES_20140831_POS_P_M.xml
 
 # Sqlalchemy URI http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls
 # You may need to install drivers (this importer supports psql and sqlite)
-sqla_uri = postgresql://brodul:test@localhost/test3
+sqla_uri = postgresql://brodul:test@localhost/test

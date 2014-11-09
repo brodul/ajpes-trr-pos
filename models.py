@@ -25,12 +25,12 @@ Base = declarative_base()
 racun_imetnik = Table(
     'racun_imetnik', Base.metadata,
     Column('racun_rn', String, ForeignKey('racuni.rn')),
-    Column('imetnik_davcna', String, ForeignKey('imetniki.davcna'))
+    Column('imetnik_mat', String, ForeignKey('imetniki.matSub'))
 )
 
 imetnik_naslov = Table(
     'imetnik_naslov', Base.metadata,
-    Column('imetnik_davcna', String, ForeignKey('imetniki.davcna')),
+    Column('imetnik_mat', String, ForeignKey('imetniki.matSub')),
     Column('naslov_id', Integer, ForeignKey('naslovi.id'))
 )
 
@@ -63,8 +63,8 @@ class Racun(Base):
 
 class Imetnik(Base):
     __tablename__ = 'imetniki'
-    davcna = Column(String(35), primary_key=True, unique=True)
-    matSub = Column(String(10))
+    davcna = Column(String(35))
+    matSub = Column(String(10), primary_key=True, unique=True)
     prorup = Column(String(5))
     idTuj = Column(String(30))
     drz = Column(String(3))

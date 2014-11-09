@@ -129,18 +129,18 @@ class XMLParser(object):
 
             self.next_event()
             tr_elem.clear()
-            if self.imetnik.get('davcna'):
+            if self.imetnik.get('matSub'):
                 naslov = Naslov(**self.naslov)
                 DBSession.add(naslov)
                 imetnik = DBSession.query(Imetnik).\
-                    filter(Imetnik.davcna == self.imetnik['davcna']).first()
+                    filter(Imetnik.matSub == self.imetnik['matSub']).first()
                 if not imetnik:
                     imetnik = Imetnik(naslovi=[naslov], **self.imetnik)
                 DBSession.merge(imetnik)
                 racun = Racun(imetniki=[imetnik], **self.tr)
                 DBSession.merge(racun)
             else:
-                logging.warning("Podjetje: %s nima davcne", self.imetnik.get('PopolnoIme'))
+                logging.warning("Podjetje: %s nima maticne", self.imetnik.get('PopolnoIme'))
             yield self.tr
 
     def parse_imetnik(self):
