@@ -18,6 +18,8 @@ Za namestitev potrebujete installliran paket git, python virtualenv
 
 Kot navaden uporabnik v zeljeni mapi pozenite naslednje ukaze
 
+Za konfiguracijo si pomagajte z primerom konfiguracije (datoteka conf.ini.example)
+
 ```sh
 git clone https://github.com/brodul/ajpes-trr-pos.git
 cd ajpes-trr-pos
